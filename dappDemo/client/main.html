@@ -1,0 +1,31 @@
+<head>
+  <title>dappDemo</title>
+</head>
+
+<body>
+  <h1>Welcome to Transcript Verification System!</h1>
+
+  {{> hello}}
+  <!-- {{> info}} -->
+</body>
+
+<template name="hello">
+  <!-- <button>Click Me</button>  -->
+  <!-- <input type="text" name="inputtext" id="inputtext" value="0xb81f1a76c1b48823a473b8e170850f31e7b425bd">  -->
+  <p>Account Ether amount : {{readBalance}} {{TemplateVar.get "readBalance"}} .</p>
+
+
+</template>
+
+
+<!--
+<template name="info">
+  <h2>Learn Meteor!</h2>
+  <ul>
+    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
+    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
+    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
+    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
+  </ul>
+</template>
+-->

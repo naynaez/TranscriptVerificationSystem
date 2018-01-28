@@ -1,0 +1,33 @@
+import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
+
+import './main.html';
+
+
+var test = "Hello";
+document.getElementById("mytext").value = test;//Now you get the js variable inside your form element
+
+Template.hello.onCreated(function helloOnCreated() {
+  // counter starts at 0
+  this.counter = new ReactiveVar(0);
+});
+
+Template.hello.helpers({
+  counter() {
+    //return Template.instance().counter.get();
+    var template = Template.instance();
+    web3.eth.getBalance("0x5d3d1ef38b7c2e6d15d780f005d6a0cbea961e5f",
+      function (err,res){
+        //alert(res);
+        TemplateVar.set(template,"counter",res);
+    })
+
+  },
+});
+
+Template.hello.events({
+  'click button'(event, instance) {
+    // increment the counter when button is clicked
+    instance.counter.set(instance.counter.get() + 1);
+  },
+});

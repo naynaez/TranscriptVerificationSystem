@@ -1,0 +1,35 @@
+{
+	"personalData":[
+		{ 
+		  "instituteName":"King Mongkut's Institute of Technology Ladkrabang",
+		  "faculty":"Engineering",
+ 		  "department":"Computer Engineering",
+		  "studentID":"57010922",
+		  "degree":"Bachelor of Engineering",
+		  "major":"Computer Engineering",
+		  "name":"Mr. Peerawat Pipattanakulchai",
+		  "dateOfBirth":"July 31, 1996",
+		  "dateOfAdmission":"2014",
+		  "dateOfGraduation":"N/A",
+		  "Total number of credit earned":"24",
+			"Cumulative GPA":"3.50"
+		}
+	]
+
+	"subjects":[
+		{ "semester":"1st semester, 2014","subjectCode":"01076311","subjectName":"Project 1", "credit":"3",  "grade":"A" },
+		{ "semester":"1st semester, 2014","subjectCode":"01076234","subjectName":"Computer Programming1", "credit":"3",  "grade":"B" },
+		{ "semester":"1st semester, 2014","subjectCode":"01076232","subjectName":"Electronics For Computer Engineering","credit":"3",  "grade":"B+" },
+		{ "semester":"2st semester, 2014","subjectCode":"01076417","subjectName":"Embedded Systems", "credit":"3",  "grade":"A" },
+		{ "semester":"2st semester, 2014","subjectCode":"01076249","subjectName":"Data Structures And Algorithm", "credit":"3",  "grade":"B+" },
+		{ "semester":"2st semester, 2014","subjectCode":"01076241","subjectName":"Introduction To Computer Technology", "credit":"3",  "grade":"B+" },
+		{ "semester":"2st semester, 2014","subjectCode":"01076244","subjectName":"Advance Digital System Design", "credit":"3",  "grade":"B" },
+		{ "semester":"2st semester, 2014","subjectCode":"01076257","subjectName":"Computer Network", "credit":"3",  "grade":"A" }
+	]
+
+	"grade":[
+		{ "semester":"1st semester, 2014","GPA":"3.50","GPS":"3.50" },
+		{ "semester":"2st semester, 2014","GPA":"3.50","GPS":"3.50" }
+	]
+
+}

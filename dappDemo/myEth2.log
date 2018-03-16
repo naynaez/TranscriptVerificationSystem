@@ -1,0 +1,23 @@
+INFO [02-27|18:26:05] Maximum peer count                       ETH=25 LES=0 total=25
+INFO [02-27|18:26:05] Starting peer-to-peer node               instance=Geth/v1.8.1-stable-1e67410e/darwin-amd64/go1.9.4
+INFO [02-27|18:26:05] Allocated cache and file handles         database=/Users/peerawatpipattanakulchai/Desktop/TranscriptVerificationSystem/dappDemo/peer2DataDir/geth/chaindata cache=768 handles=128
+INFO [02-27|18:26:05] Writing default main-net genesis block 
+INFO [02-27|18:26:06] Persisted trie from memory database      nodes=12356 size=2.34mB time=36.273495ms gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [02-27|18:26:06] Initialised chain configuration          config="{ChainID: 1 Homestead: 1150000 DAO: 1920000 DAOSupport: true EIP150: 2463000 EIP155: 2675000 EIP158: 2675000 Byzantium: 4370000 Engine: ethash}"
+INFO [02-27|18:26:06] Disk storage enabled for ethash caches   dir=/Users/peerawatpipattanakulchai/Desktop/TranscriptVerificationSystem/dappDemo/peer2DataDir/geth/ethash count=3
+INFO [02-27|18:26:06] Disk storage enabled for ethash DAGs     dir=/Users/peerawatpipattanakulchai/.ethash                                                                count=2
+INFO [02-27|18:26:06] Initialising Ethereum protocol           versions="[63 62]" network=1114
+INFO [02-27|18:26:06] Loaded most recent local header          number=0 hash=d4e567…cb8fa3 td=17179869184
+INFO [02-27|18:26:06] Loaded most recent local full block      number=0 hash=d4e567…cb8fa3 td=17179869184
+INFO [02-27|18:26:06] Loaded most recent local fast block      number=0 hash=d4e567…cb8fa3 td=17179869184
+INFO [02-27|18:26:06] Regenerated local transaction journal    transactions=0 accounts=0
+INFO [02-27|18:26:06] Starting P2P networking 
+INFO [02-27|18:26:08] UDP listener up                          self=enode://6a492c762e19aa3fbe41d2bbf09a98cf8abad088d64cd5cecd6a9937746608058fc9be79ab694b7ce90fdd7ae10df9155b9a15bea0eef4d6751f2d23ab76b2c1@[::]:30304
+INFO [02-27|18:26:08] RLPx listener up                         self=enode://6a492c762e19aa3fbe41d2bbf09a98cf8abad088d64cd5cecd6a9937746608058fc9be79ab694b7ce90fdd7ae10df9155b9a15bea0eef4d6751f2d23ab76b2c1@[::]:30304
+INFO [02-27|18:26:08] IPC endpoint opened                      url=/Users/peerawatpipattanakulchai/Desktop/TranscriptVerificationSystem/dappDemo/peer2DataDir/geth.ipc
+INFO [02-27|18:26:39] IPC endpoint closed                      endpoint=/Users/peerawatpipattanakulchai/Desktop/TranscriptVerificationSystem/dappDemo/peer2DataDir/geth.ipc
+INFO [02-27|18:26:39] Blockchain manager stopped 
+INFO [02-27|18:26:39] Stopping Ethereum protocol 
+INFO [02-27|18:26:39] Ethereum protocol stopped 
+INFO [02-27|18:26:39] Transaction pool stopped 
+INFO [02-27|18:26:39] Database closed                          database=/Users/peerawatpipattanakulchai/Desktop/TranscriptVerificationSystem/dappDemo/peer2DataDir/geth/chaindata

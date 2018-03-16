@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang ="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="nofollow"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title> Transcript Verification System | Result </title>
+    <link rel = "stylesheet" type="text/css" href="css/pageO.css" media= "screen">
+    <script type="text/javascript" src="jsPDF/dist/jspdf.debug.js"></script>
+</head>
+
+<body>
+    <header id="header">
+        <h2>This transcript has been verified !</h2>
+    </header>
+    <a href="javascript:demoFromHTML()" class="button">Generate PDF</a>
+</body>
+</html>
+
+<script type="text/javascript">
+function demoFromHTML() {
+  var contact = JSON.parse(document.getElementById("transcriptEx.json"));
+  var doc = new jsPDF('p', 'pt', 'a4');
+
+  source = ('personalData');
+        specialElementHandlers = {
+            '#bypassme': function (element, renderer) {
+                return true
+            }
+        };
+        margins = {
+            top: 80,
+            bottom: 60,
+            left: 40,
+            width: 522
+        };
+        doc.fromHTML(source, margins.left, margins.top, { //x, y coord
+            'width': margins.width, // max width of content on PDF
+            'elementHandlers': specialElementHandlers
+        }, margins);
+  doc.save("Test.pdf");
+}
+</script>

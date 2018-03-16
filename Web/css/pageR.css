@@ -17,11 +17,15 @@ h4 { color:#FFFFFF; }
 footer {background:#141414; clear:both; height: 18%; }
 
 .form { text-align:center;}
+.form a input {
+  outline: 0; background: #f2f2f2;
+  width: 350px; border: 0; margin: 20px 0 0px; padding: 5px; box-sizing: border-box;
+  font-size: 12px;
+}
 .form input {
   outline: 0; background: #f2f2f2;
   width: 280px; border: 0; margin: 20px 0 0px; padding: 5px; box-sizing: border-box;
   font-size: 12px;
-
 }
 .form button {
   outline: 0; background: #0000CC; width: 70px; border: 5px; padding: 5px; color: #FFFFFF;

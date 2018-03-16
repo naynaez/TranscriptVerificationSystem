@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang ="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="nofollow"/>
@@ -7,6 +8,7 @@
 
     <title> Transcript Verification System | Home </title>
     <link rel = "stylesheet" type="text/css" href="css/page.css" media= "screen">
+    <link rel = "stylesheet" type="text/css" href="css/chooseFile.css" media= "screen">
 </head>
 
 <body>
@@ -16,8 +18,10 @@
         <div class="form" >
           <form class="login-form" action="online.html" method="post">
             <input type="text" placeholder="Transcript URL"/><button>Verify</button>
+              <div class="input-file-container"><b>or <input class="input-file" id="my-file" type="file"><label tabindex="0" for="my-file" class="input-file-trigger">choose a file</label>
+              </div>
+            <p class="file-return"></p>
           </form>
-        <h4><b>or  <a href="">choose a file</a></h4>
         </div>
     </header>
 
@@ -26,3 +30,24 @@
     </footer>
 </body>
 </html>
+
+<script>
+document.querySelector("html").classList.add('js');
+
+var fileInput  = document.querySelector( ".input-file" ),
+    button     = document.querySelector( ".input-file-trigger" ),
+    the_return = document.querySelector(".file-return");
+
+button.addEventListener( "keydown", function( event ) {
+    if ( event.keyCode == 13 || event.keyCode == 32 ) {
+        fileInput.focus();
+    }
+});
+button.addEventListener( "click", function( event ) {
+   fileInput.focus();
+   return false;
+});
+fileInput.addEventListener( "change", function( event ) {
+    the_return.innerHTML = this.value;
+});
+</script>

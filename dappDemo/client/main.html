@@ -1,21 +1,86 @@
 <head>
-  <title>dappDemo</title>
+  <title>CE 6012</title>
 </head>
 
 <body>
-  <h1>Welcome to Transcript Verification System!</h1>
+  <h1>Transcript Verification System!</h1>
 
-  {{> hello}}
+
   <!-- {{> info}} -->
 </body>
 
-<template name="hello">
+<template name="home">
+    <script>
+      function testOnClick(){
+        console.log("This is fx for test onclick qwefokaerpofgj;seorijgo;airgj.");
+       
+      }
+
+      function hashFile(file){
+        var hashValue = web3.sha3(file);
+        return hashValue;
+      }
+
+    </script>
+    
+    
   <!-- <button>Click Me</button>  -->
   <!-- <input type="text" name="inputtext" id="inputtext" value="0xb81f1a76c1b48823a473b8e170850f31e7b425bd">  -->
-  <p>Account Ether amount : {{readBalance}} {{TemplateVar.get "readBalance"}} .</p>
+  <input type="button" onclick="location.href='/register';" value="Go to register new transcript page." />
 
+  <header id="header">
+    <div class="logo"><a href="/register"><img src="aaa.png"/></a></div>
+    <!-- <div class="form" >
+      <form class="login-form" action="result.html" method="post">
+          <form class="login-form" >
+          <div class="input-file-container"><b><input class="input-file" id="my-file" type="file"><label tabindex="0" for="my-file" class="input-file-trigger">choose a file</label>
+          </b></div>
+          <button onclick="location.href='/result';" >Verify</button>
+         
+        <p class="file-return"></p>
+        
+      </form>
+      
+    </div> -->
+
+    <!-- <input type="file" id="myFile"> -->
+    <button onclick="testOnClick()">Verify</button>
+
+    <input type="file" id="files" name="files[]" multiple />
+<output id="list"></output>
+
+<script>
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                  '</li>');
+    }
+    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+    //console.log(files['personalData']);
+    //var myFile = $('#files').prop('files')[0];
+    //var myFile = $('#files').valueOf('files');
+    var myFile = $('#files').val();
+    console.log(myFile);
+    console.log(web3.sha3(myFile));
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+  
+
+  
+</script>
+
+</header>
 
 </template>
+
 
 
 <!--

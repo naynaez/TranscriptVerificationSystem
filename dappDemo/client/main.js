@@ -1,7 +1,21 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-
 import './main.html';
+import './register.html'
+import './result.html'
+
+Router.route('/', {
+  template: 'home'
+});
+Router.route('/register', {
+  template: 'register'
+});
+Router.route('/result', {
+  template: 'result'
+});
+
+
+
 
 console.log("Hello");
 var primary = "0x31026b17b78dc930cfb57232f647f7ac97520374"  // Account in Localhost
@@ -9,11 +23,9 @@ console.log(web3.fromWei(web3.eth.getBalance(primary)).c,"ether");
 console.log(getOrigTranscriptHash("0x6425f318885746ab14577bce87f8e38a2afedb9436ab4c6f0c6161933b341fa8"));
 
 ///////////////////// XXX Unlock Account  ////////////////////
-// var accountToUnlock = "0x93878957f62e21dd9cb63c760a6e98325a2ea17e";
-// var passPhrase = "THE SECOND TEST TO GET NEW ACCOUNT";
 function unlockAccount(accountToUnlock,passPhrase){
   web3.personal.unlockAccount(accountToUnlock, passPhrase, 300);
-}
+} 
 
 
 ///////////////////// Create Transaction //////////////////
@@ -47,26 +59,24 @@ function getOrigTranscriptHash(txHashForQuery){
 
 
 
+// Template.hello.onCreated(function helloOnCreated() {
+//   // counter starts at 0
+//   this.readBalance = new ReactiveVar(0);
+// });
 
+// Template.hello.helpers({
+//   readBalance() {
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.readBalance = new ReactiveVar(0);
-});
+//     var template = Template.instance();
 
-Template.hello.helpers({
-  readBalance() {
+//     console.log("Hello");
+//     var ethAddress = "0x31026b17b78dc930cfb57232f647f7ac97520374"  // Account in Localhost
 
-    var template = Template.instance();
-
-    console.log("Hello");
-    var ethAddress = "0x31026b17b78dc930cfb57232f647f7ac97520374"  // Account in Localhost
-
-    //console.log(web3.eth.getBalance(ethAddress));
-    web3.eth.getBalance(ethAddress,
-      function (err,res){
-        TemplateVar.set(template,"readBalance",res);
-        console.log("1234");
-    })
-  },
-});
+//     //console.log(web3.eth.getBalance(ethAddress));
+//     web3.eth.getBalance(ethAddress,
+//       function (err,res){
+//         TemplateVar.set(template,"readBalance",res);
+//         console.log("1234");
+//     })
+//   },
+// });

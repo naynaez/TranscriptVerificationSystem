@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+html, body {height: 100%;}
+body {
+    background:url(../bg.png);
+    background-size: 100% 100%, auto;
+    font-family: "Arial";
+}
+* {margin:0; padding:0;}
+
+/*=============header===========*/
+header {height: 82%; text-align:center;}
+header .logo { padding:8% 0 20px 0;  }
+h2 { font-size:22px; line-height:1em; font-weight:bold; margin-bottom:15px; color:#000000; text-align:center;}
+
+/*footer*/
+footer {background:#9C4517; clear:both; height: 18%; }
+
+.form { text-align:center;}
+.form input {
+  outline: 0; background: #f2f2f2;
+  width: 280px; border: 0; margin: 0 0 5px; padding: 5px; box-sizing: border-box;
+  font-size: 12px;
+
+}
+.form button {
+  outline: 0; background: #0000CC; width: 70px; border: 5px; padding: 5px; color: #FFFFFF;
+  margin: 0 0 15px 0; font-size: 12px; -webkit-transition: all 0.3 ease; transition: all 0.3 ease;
+  cursor: pointer;
+}

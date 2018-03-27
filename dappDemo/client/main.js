@@ -27,7 +27,6 @@ function unlockAccount(accountToUnlock,passPhrase){
   web3.personal.unlockAccount(accountToUnlock, passPhrase, 300);
 } 
 
-
 ///////////////////// Create Transaction //////////////////
 //data 36 byte
 //var regTranscriptHash = "0x74657374206372656174696e67207472616e73616374696f6e20";
@@ -53,7 +52,19 @@ function getOrigTranscriptHash(txHashForQuery){
   return origTranscriptHash;
 }
 
-
+loadFileAsText = function(){
+  var fileToLoad = document.getElementById("fileToLoad").files[0];
+  var fileReader = new FileReader();
+  fileReader.onload = function(fileLoadedEvent){
+  var textFromFileLoaded = fileLoadedEvent.target.result;
+  var obj = JSON.parse(textFromFileLoaded);
+  var objString = JSON.stringify(obj);
+  var objStringHash = web3.sha3(objString);
+  console.log(textFromFileLoaded);
+  console.log(objStringHash);
+  };
+  fileReader.readAsText(fileToLoad, "UTF-8");
+}   
 
 
 

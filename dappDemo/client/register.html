@@ -1,21 +1,15 @@
 <template name="register">
-    <!-- <button type="button">Click here for add new transcript!</button> -->
-    <!-- <input type="text" name="inputtext" id="inputtext" value="0xb81f1a76c1b48823a473b8e170850f31e7b425bd">  -->
+    <script type="text/javacript" src="main.js"></script>
     <input type="button" onclick="location.href='/';" value="Go to verify transcript page." />
     
     <header id="header">
         <div class="logo"><a href="Home.html"><img src="aaa.png"/></a></div>
         <h2>Welcome to Transcript Verification System</h2><br>
         <h2>For Registrar</h2>
-        <div class="form" >
-          <form class="login-form" action="online.html" method="post">
-            <a><input type="text" placeholder="Enter Private Key"/><br></a>
-            <input type="text" placeholder="Transcript URL"/><button>Register</button>
-              <div class="input-file-container"><b>or <input class="input-file" id="my-file" type="file"><label tabindex="0" for="my-file" class="input-file-trigger">choose a file</label>
-              </b></div>
-            <p class="file-return"></p>
-          </form>
-        </div>
+        <input type="file" id="fileToLoad" accept=".txt , .json">
+        <button onclick="loadFileAsText()">Load Selected File</button>
+        <output id="list"></output>
+              
     </header>
   
   </template>

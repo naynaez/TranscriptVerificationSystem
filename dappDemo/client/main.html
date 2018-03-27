@@ -7,19 +7,7 @@
 </body>
 
 <template name="home">
-    <script>
-      function testOnClick(){
-        console.log("This is fx for test onclick.");
-       
-      }
-
-      function hashFile(file){
-        var hashValue = web3.sha3(file);
-        return hashValue;
-      }
-
-    </script>
-    
+  <script type="text/javacript" src="main.js"></script>
     
   <input type="button" onclick="location.href='/register';" value="Go to register new transcript page." />
 
@@ -31,17 +19,6 @@
     <input type="file" id="fileToLoad" accept=".txt , .json">
     <button onclick="loadFileAsText()">Load Selected File</button>
     <output id="list"></output>
-    <script>
-      function loadFileAsText(){
-        var fileToLoad = document.getElementById("fileToLoad").files[0];
-        var fileReader = new FileReader();
-        fileReader.onload = function(fileLoadedEvent){
-        var textFromFileLoaded = fileLoadedEvent.target.result;
-
-        console.log(textFromFileLoaded)
-        };
-        fileReader.readAsText(fileToLoad, "UTF-8");
-      }   
-    </script>
+  
 </header>
 </template>

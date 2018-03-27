@@ -4,15 +4,12 @@
 
 <body>
   <h1>Transcript Verification System!</h1>
-
-
-  <!-- {{> info}} -->
 </body>
 
 <template name="home">
     <script>
       function testOnClick(){
-        console.log("This is fx for test onclick qwefokaerpofgj;seorijgo;airgj.");
+        console.log("This is fx for test onclick.");
        
       }
 
@@ -24,73 +21,27 @@
     </script>
     
     
-  <!-- <button>Click Me</button>  -->
-  <!-- <input type="text" name="inputtext" id="inputtext" value="0xb81f1a76c1b48823a473b8e170850f31e7b425bd">  -->
   <input type="button" onclick="location.href='/register';" value="Go to register new transcript page." />
 
   <header id="header">
     <div class="logo"><a href="/register"><img src="aaa.png"/></a></div>
-    <!-- <div class="form" >
-      <form class="login-form" action="result.html" method="post">
-          <form class="login-form" >
-          <div class="input-file-container"><b><input class="input-file" id="my-file" type="file"><label tabindex="0" for="my-file" class="input-file-trigger">choose a file</label>
-          </b></div>
-          <button onclick="location.href='/result';" >Verify</button>
-         
-        <p class="file-return"></p>
-        
-      </form>
-      
-    </div> -->
 
-    <!-- <input type="file" id="myFile"> -->
     <button onclick="testOnClick()">Verify</button>
+    <label for="files">Choose Transcript File (.JSON)</label>
+    <input type="file" id="fileToLoad" accept=".txt , .json">
+    <button onclick="loadFileAsText()">Load Selected File</button>
+    <output id="list"></output>
+    <script>
+      function loadFileAsText(){
+        var fileToLoad = document.getElementById("fileToLoad").files[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function(fileLoadedEvent){
+        var textFromFileLoaded = fileLoadedEvent.target.result;
 
-    <input type="file" id="files" name="files[]" multiple />
-<output id="list"></output>
-
-<script>
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-
-    // files is a FileList of File objects. List some properties.
-    var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                  f.size, ' bytes, last modified: ',
-                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                  '</li>');
-    }
-    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-    //console.log(files['personalData']);
-    //var myFile = $('#files').prop('files')[0];
-    //var myFile = $('#files').valueOf('files');
-    var myFile = $('#files').val();
-    console.log(myFile);
-    console.log(web3.sha3(myFile));
-  }
-
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
-  
-
-  
-</script>
-
+        console.log(textFromFileLoaded)
+        };
+        fileReader.readAsText(fileToLoad, "UTF-8");
+      }   
+    </script>
 </header>
-
 </template>
-
-
-
-<!--
-<template name="info">
-  <h2>Learn Meteor!</h2>
-  <ul>
-    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
-  </ul>
-</template>
--->

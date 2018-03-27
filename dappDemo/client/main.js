@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Mongo } from 'meteor/mongo'
 import './main.html';
 import './register.html'
 import './result.html'
@@ -17,11 +18,16 @@ Router.route('/result', {
 
 
 
-console.log("Hello");
+// console.log("Hello");
 var primary = "0x31026b17b78dc930cfb57232f647f7ac97520374"  // Account in Localhost
-console.log(web3.fromWei(web3.eth.getBalance(primary)).c,"ether");
-console.log(getOrigTranscriptHash("0x6425f318885746ab14577bce87f8e38a2afedb9436ab4c6f0c6161933b341fa8"));
-
+// console.log(web3.fromWei(web3.eth.getBalance(primary)).c,"ether");
+// console.log(getOrigTranscriptHash("0x6425f318885746ab14577bce87f8e38a2afedb9436ab4c6f0c6161933b341fa8"));
+//web3.personal.unlockAccount(primary,"THE FIRST TEST TO GET NEW ACCOUNT");
+//console.log(createTransaction("0xb3b6ff0ded354a13fe9dcb055a7c9a814c52f60acb7e7129ad17144537379da3",primary));
+//0x8b549d61c12979e343e36fb4cf1eca27ceb12c459a3a1dc3e921b46bd90f06da
+ClientData = new Mongo.Collection(null);
+ClientData.insert({name: "ABC", text:"Hello, world!."});
+console.log(ClientData.find({name:"ABC" }).fetch());
 ///////////////////// XXX Unlock Account  ////////////////////
 function unlockAccount(accountToUnlock,passPhrase){
   web3.personal.unlockAccount(accountToUnlock, passPhrase, 300);
@@ -52,42 +58,59 @@ function getOrigTranscriptHash(txHashForQuery){
   return origTranscriptHash;
 }
 
-loadFileAsText = function(){
+
+ readFile_veri = function(){
   var fileToLoad = document.getElementById("fileToLoad").files[0];
   var fileReader = new FileReader();
   fileReader.onload = function(fileLoadedEvent){
   var textFromFileLoaded = fileLoadedEvent.target.result;
   var obj = JSON.parse(textFromFileLoaded);
   var objString = JSON.stringify(obj);
+
   var objStringHash = web3.sha3(objString);
   console.log(textFromFileLoaded);
   console.log(objStringHash);
+
+  /// get Transaction Hash
+  var tempTxHash = "0x8b549d61c12979e343e36fb4cf1eca27ceb12c459a3a1dc3e921b46bd90f06da";
+  var origTxHash = getOrigTranscriptHash(tempTxHash);
+  console.log("origTxHash is ");
+  console.log(origTxHash);
+  /// compare hash
+  if(!strcmp(origTxHash,objStringHash)){  // equal
+    
+  }
+  else{    // not equal
+
+  }
+  };
+  fileReader.readAsText(fileToLoad, "UTF-8");
+  
+}   
+readFile_regis = function(){
+  var fileToLoad = document.getElementById("fileToLoad").files[0];
+  var fileReader = new FileReader();
+  fileReader.onload = function(fileLoadedEvent){
+  var textFromFileLoaded = fileLoadedEvent.target.result;
+  var obj = JSON.parse(textFromFileLoaded);
+  var objString = JSON.stringify(obj);
+
+  var objStringHash = web3.sha3(objString);
+  console.log(textFromFileLoaded);
+  console.log(objStringHash);
+
+  console.log(obj['first_name']);
+  // Unlock Account
+  //web3.personal.unlockAccount(primary,"THE FIRST TEST TO GET NEW ACCOUNT");
+  /// Store data in Blockchain
+  var regPubKey =  document.getElementById("regPK").value;
+  //var txHash = createTransaction(objStringHash, regPubKey);
+  // combine file
+  
   };
   fileReader.readAsText(fileToLoad, "UTF-8");
 }   
 
-
-
-
-
-// Template.hello.onCreated(function helloOnCreated() {
-//   // counter starts at 0
-//   this.readBalance = new ReactiveVar(0);
-// });
-
-// Template.hello.helpers({
-//   readBalance() {
-
-//     var template = Template.instance();
-
-//     console.log("Hello");
-//     var ethAddress = "0x31026b17b78dc930cfb57232f647f7ac97520374"  // Account in Localhost
-
-//     //console.log(web3.eth.getBalance(ethAddress));
-//     web3.eth.getBalance(ethAddress,
-//       function (err,res){
-//         TemplateVar.set(template,"readBalance",res);
-//         console.log("1234");
-//     })
-//   },
-// });
+function strcmp ( str1, str2 ) {
+  return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
+}

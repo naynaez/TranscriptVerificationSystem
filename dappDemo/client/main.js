@@ -58,6 +58,10 @@ function getOrigTranscriptHash(txHashForQuery){
   return origTranscriptHash;
 }
 
+downloadPDF = function(){
+  console.log("Downloaddddddddd")
+}
+
 
  readFile_veri = function(){
   var fileToLoad = document.getElementById("fileToLoad").files[0];

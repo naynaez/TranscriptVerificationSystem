@@ -2,7 +2,16 @@
     <!-- <button type="button">Click here for add new transcript!</button> -->
     <!-- <input type="text" name="inputtext" id="inputtext" value="0xb81f1a76c1b48823a473b8e170850f31e7b425bd">  -->
     <input type="button" onclick="location.href='/';" value="Go to verify transcript page." />
-    
+
+    <p id='dataResult'></p>
+    <p id='cmpResult'></p>
+    <script>
+        console.log("Result pageeee");
+        var transcriptData = Session.get('data');
+        var cmpResult = Session.get('cmpResult');
+        document.getElementById("dataResult").innerHTML = JSON.stringify(transcriptData);
+        document.getElementById("cmpResult").innerHTML = cmpResult.toString();
+    </script>
     
   
   </template>

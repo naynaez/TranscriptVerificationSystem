@@ -77,12 +77,16 @@ function getOrigTranscriptHash(txHashForQuery){
   console.log("origTxHash is ");
   console.log(origTxHash);
   /// compare hash
+  var cmpResult = false;
   if(!strcmp(origTxHash,objStringHash)){  // equal
-    
+    cmpResult = true;
   }
   else{    // not equal
-
+    cmpResult = false;
   }
+  Session.setPersistent("data", obj) ;
+  Session.setPersistent("cmpResult", cmpResult) ;
+  Router.go('result');
   };
   fileReader.readAsText(fileToLoad, "UTF-8");
   
@@ -101,14 +105,21 @@ readFile_regis = function(){
 
   console.log(obj['first_name']);
   // Unlock Account
-  //web3.personal.unlockAccount(primary,"THE FIRST TEST TO GET NEW ACCOUNT");
+  var regPubKey =  document.getElementById("regPubK").value;
+  var regPassph =  document.getElementById("regPriK").value;
+  web3.personal.unlockAccount(regPubKey,regPassph,20);
   /// Store data in Blockchain
-  var regPubKey =  document.getElementById("regPK").value;
-  //var txHash = createTransaction(objStringHash, regPubKey);
-  // combine file
+  //txHash = createTransaction(objStringHash, regPubKey);
+  //console.log(txHash);
+  // Send data to Result
   
+
+
+  // combine file
+
   };
   fileReader.readAsText(fileToLoad, "UTF-8");
+
 }   
 
 function strcmp ( str1, str2 ) {

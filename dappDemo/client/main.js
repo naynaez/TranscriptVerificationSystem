@@ -58,9 +58,6 @@ function getOrigTranscriptHash(txHashForQuery){
   return origTranscriptHash;
 }
 
-downloadPDF = function(){
-  console.log("Downloaddddddddd")
-}
 
 
  readFile_veri = function(){
@@ -111,7 +108,7 @@ readFile_regis = function(){
   // Unlock Account
   var regPubKey =  document.getElementById("regPubK").value;
   var regPassph =  document.getElementById("regPriK").value;
-  web3.personal.unlockAccount(regPubKey,regPassph,20);
+  //web3.personal.unlockAccount(regPubKey,regPassph,20);
   /// Store data in Blockchain
   //txHash = createTransaction(objStringHash, regPubKey);
   //console.log(txHash);
@@ -128,4 +125,30 @@ readFile_regis = function(){
 
 function strcmp ( str1, str2 ) {
   return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
+}
+
+downloadPDF = function(){
+  var jsonAttributes = ["first_name","last_name","online"];
+  console.log("Downloaddddddddd");
+  var dataStr = JSON.stringify(transcriptData);
+  var printStr = '';
+  var line_Y_position = 20;
+  var line_X_position = 20;
+  var doc = new jsPDF();
+  doc.setFont("times");
+  doc.setFontType("normal");
+  for(i = 0; i <= 2; i++){
+     printStr = JSON.stringify(jsonAttributes[i]);
+     doc.text(20,line_Y_position,printStr);
+     line_X_position += 100;
+
+     printStr = JSON.stringify(transcriptData[jsonAttributes[i]]);
+     doc.text(line_X_position,line_Y_position,printStr);
+     line_Y_position += 10;
+
+
+  }
+  document.getElementById("pdf").data = doc;
+  doc.save('a4.pdf');
+  
 }

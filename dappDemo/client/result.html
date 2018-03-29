@@ -1,4 +1,5 @@
 <template name="result">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js" integrity="sha384-CchuzHs077vGtfhGYl9Qtc7Vx64rXBXdIAZIPbItbNyWIRTdG0oYAqki3Ry13Yzu" crossorigin="anonymous"></script>
     <!-- <button type="button">Click here for add new transcript!</button> -->
     <!-- <input type="text" name="inputtext" id="inputtext" value="0xb81f1a76c1b48823a473b8e170850f31e7b425bd">  -->
     <input type="button" onclick="location.href='/';" value="Back to verify transcript page." />
@@ -6,12 +7,15 @@
     <p id='dataResult'></p>
     <p id='cmpResult'></p>
     <input type="button" onclick="downloadPDF()" value="Download PDF" />
+
+    <object id="pdf" width="400" height="400"></object>
     <script>
         console.log("Result pageeee");
         var transcriptData = Session.get('data');
         var cmpResult = Session.get('cmpResult');
         document.getElementById("dataResult").innerHTML = JSON.stringify(transcriptData);
         document.getElementById("cmpResult").innerHTML = cmpResult.toString();
+        
     </script>
     
   

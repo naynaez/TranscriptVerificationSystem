@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Mongo } from 'meteor/mongo'
-import './main.html';
+import './main.html'
 import './register.html'
 import './result.html'
 
@@ -25,9 +25,7 @@ var primary = "0x31026b17b78dc930cfb57232f647f7ac97520374"  // Account in Localh
 //web3.personal.unlockAccount(primary,"THE FIRST TEST TO GET NEW ACCOUNT");
 //console.log(createTransaction("0xb3b6ff0ded354a13fe9dcb055a7c9a814c52f60acb7e7129ad17144537379da3",primary));
 //0x8b549d61c12979e343e36fb4cf1eca27ceb12c459a3a1dc3e921b46bd90f06da
-ClientData = new Mongo.Collection(null);
-ClientData.insert({name: "ABC", text:"Hello, world!."});
-console.log(ClientData.find({name:"ABC" }).fetch());
+
 ///////////////////// XXX Unlock Account  ////////////////////
 function unlockAccount(accountToUnlock,passPhrase){
   web3.personal.unlockAccount(accountToUnlock, passPhrase, 300);
@@ -73,6 +71,7 @@ function getOrigTranscriptHash(txHashForQuery){
   console.log(objStringHash);
 
   /// get Transaction Hash
+  //var txHash = obj['txHash']
   var tempTxHash = "0x8b549d61c12979e343e36fb4cf1eca27ceb12c459a3a1dc3e921b46bd90f06da";
   var origTxHash = getOrigTranscriptHash(tempTxHash);
   console.log("origTxHash is ");
@@ -110,9 +109,19 @@ readFile_regis = function(){
   var regPassph =  document.getElementById("regPriK").value;
   //web3.personal.unlockAccount(regPubKey,regPassph,20);
   /// Store data in Blockchain
-  //txHash = createTransaction(objStringHash, regPubKey);
+  //var  txHash = createTransaction(objStringHash, regPubKey);
   //console.log(txHash);
-  // Send data to Result
+  // Return new transcript with TxHash
+  var FileSaver = require('file-saver');
+  var fileStr = objString;
+  var fileName = obj['first_name'] + " " + obj['last_name'] + " Transcript";
+  //var file = new File([fileStr], fileName, {type: "text/plain;charset=utf-8"});
+  var file = new File([fileStr], fileName, {type: "application/json;charset=utf-8"});
+  FileSaver.saveAs(file);
+
+  // if(...){
+  //   alert('Registeration Complete');
+  // }
   
 
 

@@ -16,16 +16,6 @@ Router.route('/result', {
 });
 
 
-
-
-// console.log("Hello");
-var primary = "0x31026b17b78dc930cfb57232f647f7ac97520374"  // Account in Localhost
-// console.log(web3.fromWei(web3.eth.getBalance(primary)).c,"ether");
-// console.log(getOrigTranscriptHash("0x6425f318885746ab14577bce87f8e38a2afedb9436ab4c6f0c6161933b341fa8"));
-//web3.personal.unlockAccount(primary,"THE FIRST TEST TO GET NEW ACCOUNT");
-//console.log(createTransaction("0xb3b6ff0ded354a13fe9dcb055a7c9a814c52f60acb7e7129ad17144537379da3",primary));
-//0x8b549d61c12979e343e36fb4cf1eca27ceb12c459a3a1dc3e921b46bd90f06da
-
 ///////////////////// XXX Unlock Account  ////////////////////
 function unlockAccount(accountToUnlock,passPhrase){
   web3.personal.unlockAccount(accountToUnlock, passPhrase, 300);
@@ -33,8 +23,6 @@ function unlockAccount(accountToUnlock,passPhrase){
 
 ///////////////////// Create Transaction //////////////////
 //data 36 byte
-//var regTranscriptHash = "0x74657374206372656174696e67207472616e73616374696f6e20";
-//var universityPublicKey = "0x93878957f62e21dd9cb63c760a6e98325a2ea17e";
 function createTransaction(regTranscriptHash,universityPublicKey){
   txHash = web3.eth.sendTransaction(
     {
@@ -56,89 +44,8 @@ function getOrigTranscriptHash(txHashForQuery){
   return origTranscriptHash;
 }
 
-
-
- readFile_veri = function(){
-  var fileToLoad = document.getElementById("fileToLoad").files[0];
-  var fileReader = new FileReader();
-  fileReader.onload = function(fileLoadedEvent){
-  var textFromFileLoaded = fileLoadedEvent.target.result;
-  var obj = JSON.parse(textFromFileLoaded);
-  var objString = JSON.stringify(obj);
-
-  var objStringHash = web3.sha3(objString);
-  console.log(textFromFileLoaded);
-  console.log(objStringHash);
-
-  /// get Transaction Hash
-  //var txHash = obj['txHash']
-  var tempTxHash = "0x8b549d61c12979e343e36fb4cf1eca27ceb12c459a3a1dc3e921b46bd90f06da";
-  var origTxHash = getOrigTranscriptHash(tempTxHash);
-  console.log("origTxHash is ");
-  console.log(origTxHash);
-  /// compare hash
-  var cmpResult = false;
-  if(!strcmp(origTxHash,objStringHash)){  // equal
-    cmpResult = true;
-  }
-  else{    // not equal
-    cmpResult = false;
-  }
-  Session.setPersistent("data", obj) ;
-  Session.setPersistent("cmpResult", cmpResult) ;
-  Router.go('result');
-  };
-  fileReader.readAsText(fileToLoad, "UTF-8");
-  
-}   
-readFile_regis = function(){
-  var fileToLoad = document.getElementById("fileToLoad").files[0];
-  var fileReader = new FileReader();
-  fileReader.onload = function(fileLoadedEvent){
-  var textFromFileLoaded = fileLoadedEvent.target.result;
-  var obj = JSON.parse(textFromFileLoaded);
-  var objString = JSON.stringify(obj);
-
-  var objStringHash = web3.sha3(objString);
-  console.log(textFromFileLoaded);
-  console.log(objStringHash);
-
-  console.log(obj['first_name']);
-  // Unlock Account
-  var regPubKey =  document.getElementById("regPubK").value;
-  var regPassph =  document.getElementById("regPriK").value;
-  //web3.personal.unlockAccount(regPubKey,regPassph,20);
-  /// Store data in Blockchain
-  //var  txHash = createTransaction(objStringHash, regPubKey);
-  //console.log(txHash);
-  // Return new transcript with TxHash
-  var FileSaver = require('file-saver');
-  var fileStr = objString;
-  var fileName = obj['first_name'] + " " + obj['last_name'] + " Transcript";
-  //var file = new File([fileStr], fileName, {type: "text/plain;charset=utf-8"});
-  var file = new File([fileStr], fileName, {type: "application/json;charset=utf-8"});
-  FileSaver.saveAs(file);
-
-  // if(...){
-  //   alert('Registeration Complete');
-  // }
-  
-
-
-  // combine file
-
-  };
-  fileReader.readAsText(fileToLoad, "UTF-8");
-
-}   
-
-function strcmp ( str1, str2 ) {
-  return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
-}
-
 downloadPDF = function(){
-  var jsonAttributes = ["first_name","last_name","online"];
-  console.log("Downloaddddddddd");
+  var jsonAttributes = ["personalData","subjects","grade"];
   var dataStr = JSON.stringify(transcriptData);
   var printStr = '';
   var line_Y_position = 20;
@@ -156,9 +63,79 @@ downloadPDF = function(){
      line_Y_position += 10;
      line_X_position = 20;
 
-
   }
   document.getElementById("pdf").data = doc;
-  doc.save('a4.pdf');
+  doc.save(transcriptData['personalData']['name']+'.pdf');
   
+}
+
+ readFile_veri = function(){
+   /// Read file and parse to variable(obj)
+  var fileToLoad = document.getElementById("fileToLoad").files[0];
+  var fileReader = new FileReader();
+  fileReader.onload = function(fileLoadedEvent){
+  var textFromFileLoaded = fileLoadedEvent.target.result;
+  var obj = JSON.parse(textFromFileLoaded);
+    
+  var txHash = obj['txHash']  // read txHash from JSON file
+  delete obj['txHash'];     // delete txHash for new hashing
+
+  var objString = JSON.stringify(obj);
+  var objStringHash = web3.sha3(objString);  // Hash in string
+
+  /// read Transaction Hash
+  
+  console.log("txHash: " + txHash)
+  var origTranscriptHash = getOrigTranscriptHash(txHash);
+
+  /// compare hash
+  var cmpResult = false;
+  if(!strcmp(origTranscriptHash,objStringHash)){  // equal
+    cmpResult = true;
+  }
+  else{    // not equal
+    cmpResult = false;
+  }
+
+  /// Sustain result and transcript data to another pages
+  Session.setPersistent("data", obj) ;
+  Session.setPersistent("cmpResult", cmpResult) ;
+  Router.go('result');
+  };
+  fileReader.readAsText(fileToLoad, "UTF-8");
+  
+}   
+readFile_regis = function(){
+  /// Read file and parse to variable(obj)
+  var fileToLoad = document.getElementById("fileToLoad").files[0];
+  var fileReader = new FileReader();
+  fileReader.onload = function(fileLoadedEvent){
+  var textFromFileLoaded = fileLoadedEvent.target.result;
+  var obj = JSON.parse(textFromFileLoaded);
+
+  var objString = JSON.stringify(obj);
+  var objStringHash = web3.sha3(objString); // Hash file in string
+
+  // Unlock Account
+  var regPubKey =  document.getElementById("regPubK").value;  // Get data from HTML input
+  var regPassph =  document.getElementById("regPriK").value;
+  web3.personal.unlockAccount(regPubKey,regPassph,20);  // unlock account for 20 secconds
+
+  /// Store data in Blockchain
+  var txHash = createTransaction(objStringHash, regPubKey); // Store data and receive txHash value
+  obj['txHash'] = txHash;   // Append new attribute in JSON
+
+  // Return new transcript with TxHash to the registra
+  var FileSaver = require('file-saver');
+  var fileStr = JSON.stringify(obj,null,"\t");
+  var fileName = obj['personalData']['name'] + " Transcript";
+  var file = new File([fileStr], fileName, {type: "application/json;charset=utf-8"});
+  FileSaver.saveAs(file);
+
+  };
+  fileReader.readAsText(fileToLoad, "UTF-8");
+}   
+
+function strcmp ( str1, str2 ) {
+  return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
 }

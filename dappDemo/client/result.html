@@ -10,10 +10,9 @@
 
     <object id="pdf" width="400" height="400"></object>
     <script>
-        console.log("Result pageeee");
         var transcriptData = Session.get('data');
         var cmpResult = Session.get('cmpResult');
-        document.getElementById("dataResult").innerHTML = JSON.stringify(transcriptData);
+        document.getElementById("dataResult").innerHTML = JSON.stringify(transcriptData,null,"\t");
         document.getElementById("cmpResult").innerHTML = cmpResult.toString();
         
     </script>

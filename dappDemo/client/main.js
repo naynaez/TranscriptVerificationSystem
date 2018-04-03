@@ -70,71 +70,92 @@ downloadPDF = function(){
 }
 
  readFile_veri = function(){
-   /// Read file and parse to variable(obj)
-  var fileToLoad = document.getElementById("fileToLoad").files[0];
-  var fileReader = new FileReader();
-  fileReader.onload = function(fileLoadedEvent){
-  var textFromFileLoaded = fileLoadedEvent.target.result;
-  var obj = JSON.parse(textFromFileLoaded);
+    /// Read file and parse to variable(obj)
+    var fileToLoad = document.getElementById("fileToLoad").files[0];
+    var fileReader = new FileReader();
+    fileReader.onload = function(fileLoadedEvent){
+    var textFromFileLoaded = fileLoadedEvent.target.result;
+    var obj = JSON.parse(textFromFileLoaded);
+      
+    var txHash = obj['txHash']  // read txHash from JSON file
+    delete obj['txHash'];     // delete txHash for new hashing
+
+    var objString = JSON.stringify(obj);
+    var objStringHash = web3.sha3(objString);  // Hash in string
+
+    /// read Transaction Hash
+      
+    console.log("txHash: " + txHash)
+    var origTranscriptHash = getOrigTranscriptHash(txHash);
+
+    /// compare hash
+    var cmpResult = false;
+    if(!strcmp(origTranscriptHash,objStringHash)){  // equal
+      cmpResult = true;
+    }
+    else{    // not equal
+      cmpResult = false;
+    }
+
+    /// Sustain result and transcript data to another pages
+    Session.setPersistent("data", obj) ;
+    Session.setPersistent("cmpResult", cmpResult) ;
+    Router.go('result');
+    };
+    fileReader.readAsText(fileToLoad, "UTF-8");
     
-  var txHash = obj['txHash']  // read txHash from JSON file
-  delete obj['txHash'];     // delete txHash for new hashing
-
-  var objString = JSON.stringify(obj);
-  var objStringHash = web3.sha3(objString);  // Hash in string
-
-  /// read Transaction Hash
-  
-  console.log("txHash: " + txHash)
-  var origTranscriptHash = getOrigTranscriptHash(txHash);
-
-  /// compare hash
-  var cmpResult = false;
-  if(!strcmp(origTranscriptHash,objStringHash)){  // equal
-    cmpResult = true;
-  }
-  else{    // not equal
-    cmpResult = false;
-  }
-
-  /// Sustain result and transcript data to another pages
-  Session.setPersistent("data", obj) ;
-  Session.setPersistent("cmpResult", cmpResult) ;
-  Router.go('result');
-  };
-  fileReader.readAsText(fileToLoad, "UTF-8");
-  
 }   
 readFile_regis = function(){
-  /// Read file and parse to variable(obj)
-  var fileToLoad = document.getElementById("fileToLoad").files[0];
-  var fileReader = new FileReader();
-  fileReader.onload = function(fileLoadedEvent){
-  var textFromFileLoaded = fileLoadedEvent.target.result;
-  var obj = JSON.parse(textFromFileLoaded);
+    /// Read file and parse to variable(obj)
+    var fileToLoad = document.getElementById("fileToLoad").files[0];
+    var fileReader = new FileReader();
+    fileReader.onload = function(fileLoadedEvent){
+    var textFromFileLoaded = fileLoadedEvent.target.result;
+    var obj = JSON.parse(textFromFileLoaded);
+    var objLength = obj.length;
 
-  var objString = JSON.stringify(obj);
-  var objStringHash = web3.sha3(objString); // Hash file in string
+    // init array
+    var objString = [];
+    var objStringHash = [];
+    var txHash = []
+    var fileStr = []
+    var fileName = []
+    var file = []
+    for(var i = 0 ; i< objLength ; i++ ){
+      objString.push("");
+      objStringHash.push("");
+      txHash.push("");
+      fileStr.push("");
+      fileName.push("");
+      file.push(new File([""],"",{type: "application/json;charset=utf-8"}));
+    }
+    // Unlock Account
+    var regPubKey =  document.getElementById("regPubK").value;  // Get data from HTML input
+    var regPassph =  document.getElementById("regPriK").value;
+    web3.personal.unlockAccount(regPubKey,regPassph,60);  // unlock account for 60 secconds
 
-  // Unlock Account
-  var regPubKey =  document.getElementById("regPubK").value;  // Get data from HTML input
-  var regPassph =  document.getElementById("regPriK").value;
-  web3.personal.unlockAccount(regPubKey,regPassph,20);  // unlock account for 20 secconds
+    for(var i = 0 ; i < objLength ; i++ )
+    {
+        objString[i] = JSON.stringify(obj[i]);
+        objStringHash[i] = web3.sha3(objString[i]); // Hash file in string
+        console.log(objString[i])
 
-  /// Store data in Blockchain
-  var txHash = createTransaction(objStringHash, regPubKey); // Store data and receive txHash value
-  obj['txHash'] = txHash;   // Append new attribute in JSON
+        /// Store data in Blockchain
+        txHash[i] = createTransaction(objStringHash[i], regPubKey); // Store data and receive txHash value
+        obj[i]['txHash'] = txHash[i];   // Append new attribute in JSON
 
-  // Return new transcript with TxHash to the registra
-  var FileSaver = require('file-saver');
-  var fileStr = JSON.stringify(obj,null,"\t");
-  var fileName = obj['personalData']['name'] + " Transcript";
-  var file = new File([fileStr], fileName, {type: "application/json;charset=utf-8"});
-  FileSaver.saveAs(file);
+        // // Return new transcript with TxHash to the registra
+        var FileSaver = require('file-saver');
+        fileStr[i] = JSON.stringify(obj[i],null,"\t");
+        fileName[i] = obj[i]['personalData']['name'] + " Transcript";
+        file[i] = new File([fileStr[i]], fileName[i], {type: "application/json;charset=utf-8"});
+        FileSaver.saveAs(file[i]);
+    }
 
   };
   fileReader.readAsText(fileToLoad, "UTF-8");
 }   
+
 
 function strcmp ( str1, str2 ) {
   return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );

@@ -1,15 +1,53 @@
 <template name="result">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js" integrity="sha384-CchuzHs077vGtfhGYl9Qtc7Vx64rXBXdIAZIPbItbNyWIRTdG0oYAqki3Ry13Yzu" crossorigin="anonymous"></script>
-    <!-- <button type="button">Click here for add new transcript!</button> -->
-    <!-- <input type="text" name="inputtext" id="inputtext" value="0xb81f1a76c1b48823a473b8e170850f31e7b425bd">  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js" integrity="sha384-CchuzHs077vGtfhGYl9Qtc7Vx64rXBXdIAZIPbItbNyWIRTdG0oYAqki3Ry13Yzu" crossorigin="anonymous"></script>
+
     <input type="button" onclick="location.href='/';" value="Back to verify transcript page." />
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 80%;
+            text-align: center;
+        }
+        
+        th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
 
-    <p id='dataResult'></p>
-    <p id='cmpResult'></p>
-    <input type="button" onclick="downloadPDF()" value="Download PDF" />
+        h2{
+            color: #000;
+        }
+        </style>
 
-    <object id="pdf" width="400" height="400"></object>
+        <h1 align="center" id="resultDisp"> This transcript is </h1>
+        <h2>Transcript Data</h2>
+        <input type="button" onclick="downloadPDF()" value="Download PDF" />
+        <p align="center"><table id=personalDataTable> </table></p>
+        <p>&nbsp;</p>
+        <p align="center"><table id=studyDataTable> 
+        <tr>
+            <th colspan="2" >COURSE TITLE</th>
+            <th>CREDIT</th>
+            <th>GRADE</th>
+        </tr>
+    </table></p>
+
     <script>
+        function JSONToText(obj){
+            var text = JSON.stringify(obj).split('"')[1];
+            return text;
+        }
         try{
             var transcriptData = Session.get('data');
             var cmpResult = Session.get('cmpResult');
@@ -18,10 +56,109 @@
         {
             alert("Cannot get Session data. Please try again.");
         }
-        document.getElementById("dataResult").innerHTML = JSON.stringify(transcriptData,null,"\t");
-        document.getElementById("cmpResult").innerHTML = cmpResult.toString();
+        if(cmpResult){
+            document.getElementById("resultDisp").innerHTML = "This transcript is VALID.";
+            document.getElementById("resultDisp").style.color = "GREEN"
+        }
+        else
+        {
+            document.getElementById("resultDisp").innerHTML = "This transcript is INVALID !!!";
+            document.getElementById("resultDisp").style.color = "RED"
+        }
+
+        var personalDataAttribute = ["instituteName","faculty","department","studentID","degree","major","name","dateOfBirth",
+                                    "dateOfAdmission","dateOfGraduation","Total number of credit earned","Cumulative GPA"];
+        var personalDataAttributeDisp = ["Institute Name","Faculty","Department","Student ID","Degree","Major","Student Name","Date Of Birth",
+                                    "Date Of Admission","Date Of Graduation","Total number of credit earned","Cumulative GPA"];
+        ///// Generate Personal Data Table //////////
+        for(var i = 0 ; i < personalDataAttribute.length ; i++ )
+        {
+            var y = document.createElement("TR");
+            y.setAttribute("id", "myTr" + i);
+            document.getElementById("personalDataTable").appendChild(y);
+
+            var z = document.createElement("TD");
+            var t = document.createTextNode(personalDataAttributeDisp[i]);
+            z.appendChild(t);
+            document.getElementById("myTr" + i).appendChild(z);
+
+            var z = document.createElement("TD");
+            var t = document.createTextNode(JSONToText(transcriptData['personalData'][personalDataAttribute[i]]));
+            z.appendChild(t);
+            document.getElementById("myTr" + i).appendChild(z);
+        }
+        ////// Get unique Semester value /////////
+        var semester = [];
+        for(var i = 0 ; i < transcriptData['subjects'].length ; i++)
+        {
+            if(semester.indexOf(transcriptData['subjects'][i]['semester']) === -1)
+            {
+                semester.push(transcriptData['subjects'][i]['semester']);      
+            }  
+        }
         
+        ////// Generate Subject detail Table ///////// 
+            /// Separate by Semester    
+        for(var j = 0 ; j < semester.length ; j++)
+        {
+            var y = document.createElement("TR");
+            y.setAttribute("id", "my2Tr" + j + i);
+            document.getElementById("studyDataTable").appendChild(y);
+
+            var z = document.createElement("TH");
+            var t = document.createTextNode("Semester " + JSONToText(semester[j]));
+            z.setAttribute("colspan", "4");
+            z.appendChild(t);
+            document.getElementById("my2Tr" + j + i).appendChild(z);
+
+            /// Generate Subject Table
+            for(var i = 0 ; i < transcriptData['subjects'].length ; i++ )
+            {
+                if( transcriptData['subjects'][i]['semester'] == semester[j])
+                {
+                    var y = document.createElement("TR");
+                    y.setAttribute("id", "my2Tr" + j + i);
+                    document.getElementById("studyDataTable").appendChild(y);
+
+                    var z = document.createElement("TD");
+                    var t = document.createTextNode(JSONToText(transcriptData["subjects"][i]['subjectCode']));
+                    z.appendChild(t);
+                    document.getElementById("my2Tr" + j + i).appendChild(z);
+
+                    var z = document.createElement("TD");
+                    var t = document.createTextNode(JSONToText(transcriptData["subjects"][i]['subjectName']));
+                    z.appendChild(t);
+                    document.getElementById("my2Tr" + j + i).appendChild(z);
+
+                    var z = document.createElement("TD");
+                    var t = document.createTextNode(JSONToText(transcriptData["subjects"][i]['credit']));
+                    z.appendChild(t);
+                    document.getElementById("my2Tr" + j + i).appendChild(z);
+
+                    var z = document.createElement("TD");
+                    var t = document.createTextNode(JSONToText(transcriptData["subjects"][i]['grade']));
+                    z.appendChild(t);
+                    document.getElementById("my2Tr" + j + i).appendChild(z);
+                }
+            }
+            ////// Display GPS GPA
+            for(var k = 0 ; k < semester.length ; k++)
+            {
+                if(transcriptData['grade'][k]['semester'] == semester[j])
+                {
+                    var y = document.createElement("TR");
+                    y.setAttribute("id", "my2TrG" + j);
+                    document.getElementById("studyDataTable").appendChild(y);
+
+                    var z = document.createElement("TD");
+                    var t = document.createTextNode("GPS: " + JSONToText(transcriptData['grade'][k]['GPS']) + 
+                                                    " / GPA: " + JSONToText(transcriptData['grade'][k]['GPA']));
+                    z.setAttribute("colspan", "4");
+                    z.setAttribute("text-align", "right");
+                    z.appendChild(t);
+                    document.getElementById("my2TrG" + j).appendChild(z);
+                }   
+            }    
+        }
     </script>
-    
-  
-  </template>
+  </template> 

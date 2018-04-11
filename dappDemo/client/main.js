@@ -103,6 +103,7 @@ readFile_veri = function()
       var objStringHash = web3.sha3(objString);  // Hash in string
       console.log(objStringHash);
       /// read Transaction Hash
+      var isFileValid = false;
       
       console.log("txHash: " + txHash)
       try{
@@ -117,6 +118,7 @@ readFile_veri = function()
         {
           alert("txHash does not exist. Please try another transcript file.");
         }
+        isFileValid = true;
       }
 
       /// compare hash
@@ -137,7 +139,10 @@ readFile_veri = function()
       {
         alert("Session erro. Please try again.");
       }
-      Router.go('result');
+      if(!isFileValid){
+        Router.go('result');
+      }
+      
     };
     try
     {

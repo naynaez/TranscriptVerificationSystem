@@ -18,6 +18,11 @@ Router.route('/result',
   template: 'result'
 });
 
+function strcmp ( str1, str2 ) 
+{
+  return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
+}
+
 
 ///////////////////// XXX Unlock Account  ////////////////////
 function unlockAccount(accountToUnlock,passPhrase)
@@ -71,7 +76,6 @@ downloadPDF = function()
      line_X_position = 20;
 
   }
-  document.getElementById("pdf").data = doc;
   doc.save(transcriptData['personalData']['name']+'.pdf');
   
 }
@@ -211,10 +215,3 @@ readFile_regis = function()
 };
 fileReader.readAsText(fileToLoad, "UTF-8");
 }   
-
-
-
-function strcmp ( str1, str2 ) 
-{
-  return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
-}

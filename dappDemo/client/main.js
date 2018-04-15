@@ -103,7 +103,7 @@ readFile_veri = function()
       var objStringHash = web3.sha3(objString);  // Hash in string
       console.log(objStringHash);
       /// read Transaction Hash
-      var isFileValid = false;
+      var isFileInvalid = false;
       
       console.log("txHash: " + txHash)
       try{
@@ -118,7 +118,7 @@ readFile_veri = function()
         {
           alert("txHash does not exist. Please try another transcript file.");
         }
-        isFileValid = true;
+        isFileInvalid = true;
       }
 
       /// compare hash
@@ -139,7 +139,7 @@ readFile_veri = function()
       {
         alert("Session erro. Please try again.");
       }
-      if(!isFileValid){
+      if(!isFileInvalid){   /// Go to result page if there is no error.
         Router.go('result');
       }
       
@@ -213,7 +213,6 @@ readFile_regis = function()
       fileStr[i] = JSON.stringify(obj[i],null,"\t");
       fileName[i] = obj[i]['personalData']['name'] + " Transcript";
       file[i] = new File([fileStr[i]], fileName[i], {type: "application/json;charset=utf-8"});
-      zip.file("hello.txt", "Hello World\n");
       FileSaver.saveAs(file[i]);
   }
 

@@ -5,35 +5,32 @@ import './main.html'
 import './register.html'
 import './result.html'
 
-Router.route('/', 
+Router.route('/',
 {
   template: 'home'
 });
-Router.route('/register', 
+Router.route('/register',
 {
   template: 'register'
 });
-Router.route('/result', 
+Router.route('/result',
 {
   template: 'result'
 });
 
-function strcmp ( str1, str2 ) 
-{
+function strcmp ( str1, str2 ) {
   return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
 }
 
 
 ///////////////////// XXX Unlock Account  ////////////////////
-function unlockAccount(accountToUnlock,passPhrase)
-{
+function unlockAccount(accountToUnlock,passPhrase) {
   web3.personal.unlockAccount(accountToUnlock, passPhrase, 300);
-} 
+}
 
 ///////////////////// Create Transaction //////////////////
 //data 36 byte
-function createTransaction(regTranscriptHash,universityPublicKey)
-{
+function createTransaction(regTranscriptHash,universityPublicKey) {
   txHash = web3.eth.sendTransaction(
     {
       from: universityPublicKey,
@@ -48,40 +45,99 @@ function createTransaction(regTranscriptHash,universityPublicKey)
 
 
 /////////////// Get data from transaction //////////////////
-function getOrigTranscriptHash(txHashForQuery){
+function getOrigTranscriptHash(txHashForQuery) {
   var transaction = web3.eth.getTransaction(txHashForQuery);
   var origTranscriptHash = transaction.input;
   return origTranscriptHash;
 }
 
-downloadPDF = function()
-{
-  var jsonAttributes = ["personalData","subjects","grade"];
+downloadPDF = function() {
+  var personalAttr = ['faculty','department','studentID','name','dateOfBirth','dateOfAdmission','dateOfGraduation','degree','major','Total number of credit earned','Cumulative GPA'];
+  var subjectsAttr = ['semester','subjectCode','subjectName','credit','grade']
   var dataStr = JSON.stringify(transcriptData);
   var printStr = '';
-  var line_Y_position = 20;
+  var printDet = '';
+  var printSub = '';
+  var line_Y_position = 25;
   var line_X_position = 20;
   var doc = new jsPDF();
   doc.setFont("times");
   doc.setFontType("normal");
-  for(i = 0; i <= 2; i++)
-  {
-     printStr = JSON.stringify(jsonAttributes[i]);
-     doc.text(line_X_position,line_Y_position,printStr);
-     line_X_position += 100;
-
-     printStr = JSON.stringify(transcriptData[jsonAttributes[i]]);
-     doc.text(line_X_position,line_Y_position,printStr);
-     line_Y_position += 10;
-     line_X_position = 20;
-
+  //display name
+  printStr = JSON.stringify(transcriptData['personalData']['instituteName']);
+  doc.text(line_X_position+30,line_Y_position,printStr.split('"')[1]);
+  line_Y_position += 10;
+  //display detail
+  for(var i = 0; i < 9; i++) {
+    printStr = JSON.stringify(personalAttr[i]);
+    printDet = JSON.stringify(transcriptData['personalData'][personalAttr[i]]);
+    if(i == 0) {
+      doc.text(line_X_position+60,line_Y_position,printStr.split('"')[1]+' of ');
+      doc.text(line_X_position+85,line_Y_position,printDet.split('"')[1]);
+      line_Y_position += 10;
+    }
+    if(i == 1) {
+      doc.text(line_X_position+50,line_Y_position,printStr.split('"')[1]+' of ');
+      doc.text(line_X_position+85,line_Y_position,printDet.split('"')[1]);
+      line_Y_position += 10;
+    }
+    if(i != 0 && i != 1) {
+      doc.text(line_X_position,line_Y_position,printStr.split('"')[1]+' : '+printDet.split('"')[1]);
+      line_Y_position += 10;
+    }
   }
+  line_Y_position += 10;
+  //Display Subject
+  var semester = [];
+  for(var i = 0 ; i < transcriptData['subjects'].length ; i++) {
+     if(semester.indexOf(transcriptData['subjects'][i]['semester']) === -1){
+         semester.push(transcriptData['subjects'][i]['semester']);
+     }
+  }
+  for(var k = 0 ; k < semester.length ; k++) {
+    printSem = JSON.stringify(semester[k])
+    doc.text(line_X_position+60,line_Y_position,'Semester : '+printSem.split('"')[1]);
+    line_Y_position += 10;
+    for(var i = 0; i < transcriptData['subjects'].length; i++) {
+      if(transcriptData['subjects'][i]['semester'] == semester[k]) {
+        for(var j = 1; j < 5; j++) {
+          printSub = JSON.stringify(transcriptData['subjects'][i][subjectsAttr[j]]);
+          if(j == 1) {
+            doc.text(line_X_position,line_Y_position,printSub.split('"')[1]);
+          }
+          if(j == 2) {
+            doc.text(line_X_position+25,line_Y_position,printSub.split('"')[1]);
+          }
+          if(j == 3) {
+            doc.text(line_X_position+150,line_Y_position,printSub.split('"')[1]);
+          }
+          if(j == 4) {
+            doc.text(line_X_position+155,line_Y_position,printSub.split('"')[1]);
+          }
+        }line_Y_position += 10;
+      }
+    }
+    // Display GPS GPA
+    for(var i = 0; i < transcriptData['grade'].length; i++) {
+      if(transcriptData['grade'][i]['semester'] == semester[k]) {
+          printGPS = JSON.stringify(transcriptData['grade'][i]['GPS']);
+          printGPA = JSON.stringify(transcriptData['grade'][i]['GPA']);
+          doc.text(line_X_position+55,line_Y_position,'GPS : '+printGPS.split('"')[1]+'  GPA : '+printGPA.split('"')[1]);
+      }
+    }line_Y_position += 10;
+  }
+  line_Y_position += 10;
+  for(var i = 9; i < 11; i++) {
+    printStr = JSON.stringify(personalAttr[i]);
+    printDet = JSON.stringify(transcriptData['personalData'][personalAttr[i]]);
+    doc.text(line_X_position,line_Y_position,printStr.split('"')[1]+' : '+printDet.split('"')[1]);
+    line_Y_position += 10;
+  }
+
   doc.save(transcriptData['personalData']['name']+'.pdf');
-  
 }
 
-readFile_veri = function()
-{
+readFile_veri = function() {
       /// Read file and parse to variable(obj)
     var fileToLoad = document.getElementById("fileToLoad").files[0];
     var fileReader = new FileReader();
@@ -95,7 +151,7 @@ readFile_veri = function()
       {
         alert("Invalid transcript file.");
       }
-        
+
       var txHash = obj['txHash']  // read txHash from JSON file
       delete obj['txHash'];     // delete txHash for new hashing
 
@@ -104,18 +160,18 @@ readFile_veri = function()
       console.log(objStringHash);
       /// read Transaction Hash
       var isFileInvalid = false;
-      
+
       console.log("txHash: " + txHash)
-      try{
+      try
+      {
         var origTranscriptHash = getOrigTranscriptHash(txHash);
       }
-      catch(e){
-        if(txHash != null)
-        {
+      catch(e)
+      {
+        if(txHash != null) {
           alert("Cannot get data from Blockchain. Please try again.");
         }
-        else
-        {
+        else {
           alert("txHash does not exist. Please try another transcript file.");
         }
         isFileInvalid = true;
@@ -123,15 +179,16 @@ readFile_veri = function()
 
       /// compare hash
       var cmpResult = false;
-      if(!strcmp(origTranscriptHash,objStringHash)){  // equal
+      if(!strcmp(origTranscriptHash,objStringHash)) {  // equal
         cmpResult = true;
       }
-      else{    // not equal
+      else {    // not equal
         cmpResult = false;
       }
 
       /// Sustain result and transcript data to another pages
-      try{
+      try
+      {
         Session.setPersistent("data", obj) ;
         Session.setPersistent("cmpResult", cmpResult) ;
       }
@@ -139,10 +196,9 @@ readFile_veri = function()
       {
         alert("Session erro. Please try again.");
       }
-      if(!isFileInvalid){   /// Go to result page if there is no error.
+      if(!isFileInvalid) {   /// Go to result page if there is no error.
         Router.go('result');
       }
-      
     };
     try
     {
@@ -152,10 +208,9 @@ readFile_veri = function()
     {
       alert("Invalid transcript file. Please try again.");
     }
- 
-}   
-readFile_regis = function()
-{
+}
+
+readFile_regis = function() {
   /// Read file and parse to variable(obj)
   var fileToLoad = document.getElementById("fileToLoad").files[0];
   var fileReader = new FileReader();
@@ -172,8 +227,7 @@ readFile_regis = function()
   var fileStr = []
   var fileName = []
   var file = []
-  for(var i = 0 ; i< objLength ; i++ )
-  {
+  for(var i = 0 ; i< objLength ; i++ ) {
     objString.push("");
     objStringHash.push("");
     txHash.push("");
@@ -193,17 +247,18 @@ readFile_regis = function()
     alert("Incorrect username or passphrase.");
   }
 
-  for(var i = 0 ; i < objLength ; i++ )
-  {
+  for(var i = 0 ; i < objLength ; i++ ) {
       objString[i] = JSON.stringify(obj[i]);
       objStringHash[i] = web3.sha3(objString[i]); // Hash file in string
       console.log(objString[i])
 
       /// Store data in Blockchain
-      try{
+      try
+      {
         txHash[i] = createTransaction(objStringHash[i], regPubKey); // Store data and receive txHash value
       }
-      catch(e){
+      catch(e)
+      {
         alert("Cannot create Transaction for index:" + i);
       }
       obj[i]['txHash'] = txHash[i];   // Append new attribute in JSON
@@ -215,7 +270,6 @@ readFile_regis = function()
       file[i] = new File([fileStr[i]], fileName[i], {type: "application/json;charset=utf-8"});
       FileSaver.saveAs(file[i]);
   }
-
 };
 fileReader.readAsText(fileToLoad, "UTF-8");
-}   
+}

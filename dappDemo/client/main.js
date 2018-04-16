@@ -5,6 +5,7 @@ import './main.html'
 import './register.html'
 import './result.html'
 
+
 Router.route('/',
 {
   template: 'home'
@@ -21,7 +22,6 @@ Router.route('/result',
 function strcmp ( str1, str2 ) {
   return ( ( str1 == str2 ) ? 0 : ( ( str1 > str2 ) ? 1 : -1 ) );
 }
-
 
 ///////////////////// XXX Unlock Account  ////////////////////
 function unlockAccount(accountToUnlock,passPhrase) {
@@ -42,7 +42,6 @@ function createTransaction(regTranscriptHash,universityPublicKey) {
   );
   return txHash;
 }
-
 
 /////////////// Get data from transaction //////////////////
 function getOrigTranscriptHash(txHashForQuery) {
@@ -214,62 +213,62 @@ readFile_regis = function() {
   /// Read file and parse to variable(obj)
   var fileToLoad = document.getElementById("fileToLoad").files[0];
   var fileReader = new FileReader();
-  fileReader.onload = function(fileLoadedEvent){
-  var textFromFileLoaded = fileLoadedEvent.target.result;
-  var obj = JSON.parse(textFromFileLoaded);
-  var objLength = obj.length;
-  var JSZip = require("jszip");
+  fileReader.onload = function(fileLoadedEvent) {
+    var textFromFileLoaded = fileLoadedEvent.target.result;
+    var obj = JSON.parse(textFromFileLoaded);
+    var objLength = obj.length;
+    var JSZip = require("jszip");
 
-  // init array
-  var objString = [];
-  var objStringHash = [];
-  var txHash = []
-  var fileStr = []
-  var fileName = []
-  var file = []
-  for(var i = 0 ; i< objLength ; i++ ) {
-    objString.push("");
-    objStringHash.push("");
-    txHash.push("");
-    fileStr.push("");
-    fileName.push("");
-    file.push(new File([""],"",{type: "application/json;charset=utf-8"}));
-  }
-  // Unlock Account
-  var regPubKey =  document.getElementById("regPubK").value;  // Get data from HTML input
-  var regPassph =  document.getElementById("regPriK").value;
-  try
-  {
-    web3.personal.unlockAccount(regPubKey,regPassph,60);  // unlock account for 60 secconds
-  }
-  catch(e)
-  {
-    alert("Incorrect username or passphrase.");
-  }
+    // init array
+    var objString = [];
+    var objStringHash = [];
+    var txHash = []
+    var fileStr = []
+    var fileName = []
+    var file = []
+    for(var i = 0 ; i< objLength ; i++ ) {
+      objString.push("");
+      objStringHash.push("");
+      txHash.push("");
+      fileStr.push("");
+      fileName.push("");
+      file.push(new File([""],"",{type: "application/json;charset=utf-8"}));
+    }
+    // Unlock Account
+    var regPubKey =  document.getElementById("regPubK").value;  // Get data from HTML input
+    var regPassph =  document.getElementById("regPriK").value;
+    try
+    {
+      web3.personal.unlockAccount(regPubKey,regPassph,60);  // unlock account for 60 secconds
+    }
+    catch(e)
+    {
+      alert("Incorrect username or passphrase.");
+    }
 
-  for(var i = 0 ; i < objLength ; i++ ) {
-      objString[i] = JSON.stringify(obj[i]);
-      objStringHash[i] = web3.sha3(objString[i]); // Hash file in string
-      console.log(objString[i])
+    for(var i = 0 ; i < objLength ; i++ ) {
+        objString[i] = JSON.stringify(obj[i]);
+        objStringHash[i] = web3.sha3(objString[i]); // Hash file in string
+        console.log(objString[i])
 
-      /// Store data in Blockchain
-      try
-      {
-        txHash[i] = createTransaction(objStringHash[i], regPubKey); // Store data and receive txHash value
-      }
-      catch(e)
-      {
-        alert("Cannot create Transaction for index:" + i);
-      }
-      obj[i]['txHash'] = txHash[i];   // Append new attribute in JSON
+        /// Store data in Blockchain
+        try
+        {
+          txHash[i] = createTransaction(objStringHash[i], regPubKey); // Store data and receive txHash value
+        }
+        catch(e)
+        {
+          alert("Cannot create Transaction for index:" + i);
+        }
+        obj[i]['txHash'] = txHash[i];   // Append new attribute in JSON
 
-      // // Return new transcript with TxHash to the registra
-      var FileSaver = require('file-saver');
-      fileStr[i] = JSON.stringify(obj[i],null,"\t");
-      fileName[i] = obj[i]['personalData']['name'] + " Transcript";
-      file[i] = new File([fileStr[i]], fileName[i], {type: "application/json;charset=utf-8"});
-      FileSaver.saveAs(file[i]);
-  }
-};
-fileReader.readAsText(fileToLoad, "UTF-8");
+        // // Return new transcript with TxHash to the registra
+        var FileSaver = require('file-saver');
+        fileStr[i] = JSON.stringify(obj[i],null,"\t");
+        fileName[i] = obj[i]['personalData']['name'] + " Transcript";
+        file[i] = new File([fileStr[i]], fileName[i], {type: "application/json;charset=utf-8"});
+        FileSaver.saveAs(file[i]);
+    }
+  };
+  fileReader.readAsText(fileToLoad, "UTF-8");
 }

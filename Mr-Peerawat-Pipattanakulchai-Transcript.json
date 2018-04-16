@@ -1,0 +1,451 @@
+{
+	"personalData": {
+		"instituteName": "King Mongkut's Institute of Technology Ladkrabang",
+		"faculty": "Engineering",
+		"department": "Computer Engineering",
+		"studentID": "57010922",
+		"degree": "Bachelor of Engineering",
+		"major": "Computer Engineering",
+		"name": "Mr Peerawat Pipattanakulchai",
+		"dateOfBirth": "July 1, 1992",
+		"dateOfAdmission": "Aug, 2014",
+		"dateOfGraduation": "May, 2018",
+		"Total number of credit earned": "148",
+		"Cumulative GPA": "3.50"
+	},
+	"subjects": [
+		{
+			"semester": "1/2014",
+			"subjectCode": "01006001",
+			"subjectName": "ENGINEERING MATHEMATICS 1",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "1/2014",
+			"subjectCode": "01076234",
+			"subjectName": "COMPUTER PROGRAMMING 1",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "1/2014",
+			"subjectCode": "01006011",
+			"subjectName": "ENGINEERING MATERIALS",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "1/2014",
+			"subjectCode": "01006015",
+			"subjectName": "ENGINEERING DRAWING",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "1/2014",
+			"subjectCode": "90201001",
+			"subjectName": "FOUNDATION ENGLISH 1",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "1/2014",
+			"subjectCode": "01076241",
+			"subjectName": "INTRODUCTION TO COMPUTER TECHNOLOGY",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "1/2014",
+			"subjectCode": "01006027",
+			"subjectName": "PRE-ENGINEERING ACTIVITIES",
+			"credit": "0",
+			"grade": "S"
+		},
+		{
+			"semester": "1/2014",
+			"subjectCode": "90401011",
+			"subjectName": "ENTREPRENEURSHIP",
+			"credit": "3",
+			"grade": "C"
+		},
+		{
+			"semester": "2/2014",
+			"subjectCode": "01006002",
+			"subjectName": "ENGINEERING MATHEMATICS 2",
+			"credit": "3",
+			"grade": "D"
+		},
+		{
+			"semester": "2/2014",
+			"subjectCode": "01006010",
+			"subjectName": "ENGINEERING MECHANICS",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "2/2014",
+			"subjectCode": "01076231",
+			"subjectName": "ELECTRICAL CIRCUIT ANALYSIS",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2014",
+			"subjectCode": "90201002",
+			"subjectName": "FOUNDATION ENGLISH 2",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "2/2014",
+			"subjectCode": "90307008",
+			"subjectName": "LANGUAGE FOR MASS MEDIA",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "2/2014",
+			"subjectCode": "90401013",
+			"subjectName": "GENERAL BUSINESS",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "01006003",
+			"subjectName": "ENGINEERING MATHEMATICS 3",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "01076232",
+			"subjectName": "ELECTRONICS FOR COMPUTER ENGINEERING",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "01076233",
+			"subjectName": "CIRCUITS AND ELECTRONICS LABORATORY",
+			"credit": "1",
+			"grade": "B"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "01076242",
+			"subjectName": "DIGITAL CIRCUIT AND LOGIC DESIGN",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "01076243",
+			"subjectName": "DIGITAL CIRCUIT LABORATORY",
+			"credit": "1",
+			"grade": "A"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "01076249",
+			"subjectName": "DATA STRUCTURES AND ALGORITHMS",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "01076250",
+			"subjectName": "DATA STRUCTURES AND ALGORITHMS LABORATORY",
+			"credit": "1",
+			"grade": "C"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "90201019",
+			"subjectName": "ENGLISH FOR DEVELOPING READING SKILLS",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "1/2015",
+			"subjectCode": "90306006",
+			"subjectName": "KNOWLEDGE MANAGEMENT",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "01076244",
+			"subjectName": "ADVANCED DIGITAL SYSTEM DESIGN",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "01076245",
+			"subjectName": "ADVANCED DIGITAL SYSTEM DESIGN LABORATORY",
+			"credit": "1",
+			"grade": "B+"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "01076246",
+			"subjectName": "COMPUTER ORGANIZATION",
+			"credit": "3",
+			"grade": "C+"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "01076247",
+			"subjectName": "COMPUTER INTERFACING",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "01076248",
+			"subjectName": "COMPUTER INTERFACING LABORATORY",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "01076251",
+			"subjectName": "DATA COMMUNICATION",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "01076252",
+			"subjectName": "DATA COMMUNICATION LABORATORY",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "01076253",
+			"subjectName": "PROBABILITY AND STATISTICS",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "2/2015",
+			"subjectCode": "90201003",
+			"subjectName": "ENGLISH FOR ACADEMIC PURPOSES",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "1/2016",
+			"subjectCode": "01076254",
+			"subjectName": "OBJECT-ORIENTED ANALYSIS AND DESIGN",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "1/2016",
+			"subjectCode": "01076255",
+			"subjectName": "COMPUTER ARCHITECTURE",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "1/2016",
+			"subjectCode": "01076256",
+			"subjectName": "SOFTWARE ENGINEERING",
+			"credit": "3",
+			"grade": "C+"
+		},
+		{
+			"semester": "1/2016",
+			"subjectCode": "01076257",
+			"subjectName": "COMPUTER NETWORKS",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "1/2016",
+			"subjectCode": "01076258",
+			"subjectName": "THEORY OF COMPUTATION",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "1/2016",
+			"subjectCode": "01076566",
+			"subjectName": "MULTIMEDIA SYSTEMS",
+			"credit": "3",
+			"grade": "C"
+		},
+		{
+			"semester": "1/2016",
+			"subjectCode": "90106003",
+			"subjectName": "EARTH AND UNIVERSE",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "2/2016",
+			"subjectCode": "01076259",
+			"subjectName": "OPERATING SYSTEMS",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "2/2016",
+			"subjectCode": "01076260",
+			"subjectName": "INTERNETWORKING STANDARDS AND TECHNOLOGIES",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2016",
+			"subjectCode": "01076261",
+			"subjectName": "INTERNETWORKING STANDARDS AND TECHNOLOGIES LABORATORY",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "2/2016",
+			"subjectCode": "01076262",
+			"subjectName": "COMPILER CONSTRUCTION",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "2/2016",
+			"subjectCode": "01076263",
+			"subjectName": "DATABASE SYSTEMS",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2016",
+			"subjectCode": "01076417",
+			"subjectName": "EMBEDDED SYSTEMS",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2016",
+			"subjectCode": "03076005",
+			"subjectName": "PRINCIPLES OF MANAGEMENT",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "3/2016",
+			"subjectCode": "01006004",
+			"subjectName": "INDUSTRIAL TRAINING",
+			"credit": "3",
+			"grade": "S"
+		},
+		{
+			"semester": "1/2017",
+			"subjectCode": "01076311",
+			"subjectName": "PROJECT 1",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "1/2017",
+			"subjectCode": "01076582",
+			"subjectName": "ARTIFICIAL INTELLIGENCE",
+			"credit": "3",
+			"grade": "B"
+		},
+		{
+			"semester": "1/2017",
+			"subjectCode": "01076634",
+			"subjectName": "BIG DATA ARCHITECTURE",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "1/2017",
+			"subjectCode": "03206089",
+			"subjectName": "EDUCATIONAL COMPUTER TECHNOLOGY",
+			"credit": "3",
+			"grade": "B+"
+		},
+		{
+			"semester": "2/2017",
+			"subjectCode": "01076312",
+			"subjectName": "PROJECT 2",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2017",
+			"subjectCode": "01076568",
+			"subjectName": "HUMAN COMPUTER INTERACTION",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2017",
+			"subjectCode": "01076598",
+			"subjectName": "INTRODUCTION TO DATA ANALYTICS",
+			"credit": "3",
+			"grade": "A"
+		},
+		{
+			"semester": "2/2017",
+			"subjectCode": "90106002",
+			"subjectName": "HUMAN AND ENERGY",
+			"credit": "3",
+			"grade": "A"
+		}
+	],
+	"grade": [
+		{
+			"semester": "1/2014",
+			"GPA": "3.07",
+			"GPS": "3.07"
+		},
+		{
+			"semester": "2/2014",
+			"GPA": "3.21",
+			"GPS": "3.35"
+		},
+		{
+			"semester": "1/2015",
+			"GPA": "3.23",
+			"GPS": "3.28"
+		},
+		{
+			"semester": "2/2015",
+			"GPA": "3.22",
+			"GPS": "3.19"
+		},
+		{
+			"semester": "1/2016",
+			"GPA": "3.20",
+			"GPS": "3.14"
+		},
+		{
+			"semester": "2/2016",
+			"GPA": "3.27",
+			"GPS": "3.65"
+		},
+		{
+			"semester": "3/2016",
+			"GPA": "3.27",
+			"GPS": "0.00"
+		},
+		{
+			"semester": "1/2017",
+			"GPA": "3.30",
+			"GPS": "3.62"
+		},
+		{
+			"semester": "2/2017",
+			"GPA": "3.50",
+			"GPS": "4.00"
+		}
+	],
+	"txHash": "0x434c0876c265190352de61a32831dba7ae852a36012b1c470143c9c538dc8119"
+}

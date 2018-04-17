@@ -50,8 +50,9 @@ function getOrigTranscriptHash(txHashForQuery) {
   return origTranscriptHash;
 }
 
-downloadPDF = function(){
+downloadPDF = function() {
   var personalAttr = ['faculty','department','studentID','name','dateOfBirth','dateOfAdmission','dateOfGraduation','degree','major','Total number of credit earned','Cumulative GPA'];
+  var personalAttrDisp = ['Faculty','Department','Student ID','Student Name','Date Of Birth','Date Of Admission','Date Of Graduation','Degree','Major','Total number of credit earned','Cumulative GPA'];
   var subjectsAttr = ['semester','subjectCode','subjectName','credit','grade']
   var dataStr = JSON.stringify(transcriptData);
   var printStr = '';
@@ -68,20 +69,20 @@ downloadPDF = function(){
   doc.text(line_X_position+96,line_Y_position,printStr.split('"')[1],null,null,'center');
   line_Y_position += 4;
   //display detail
-  for(var i = 0; i < 9; i++){
-    printStr = JSON.stringify(personalAttr[i]);
+  for(var i = 0; i < 9; i++) {
+    printStr = JSON.stringify(personalAttrDisp[i]);
     printDet = JSON.stringify(transcriptData['personalData'][personalAttr[i]]);
     if(i == 0) {
       doc.text(line_X_position+80,line_Y_position,printStr.split('"')[1]+' of ');
-      doc.text(line_X_position+93,line_Y_position,printDet.split('"')[1]);
+      doc.text(line_X_position+94,line_Y_position,printDet.split('"')[1]);
       line_Y_position += 4;
     }
     if(i == 1) {
       doc.text(line_X_position+74,line_Y_position,printStr.split('"')[1]+' of ');
-      doc.text(line_X_position+93,line_Y_position,printDet.split('"')[1]);
+      doc.text(line_X_position+94,line_Y_position,printDet.split('"')[1]);
       line_Y_position += 4;
     }
-    if(i != 0 && i != 1){
+    if(i != 0 && i != 1) {
       doc.text(line_X_position,line_Y_position,printStr.split('"')[1]+' : '+printDet.split('"')[1]);
       line_Y_position += 4;
     }
@@ -89,8 +90,8 @@ downloadPDF = function(){
   line_Y_position += 4;
   //Check Semester
   var semester = [];
-  for(var i = 0 ; i < transcriptData['subjects'].length ; i++){
-     if(semester.indexOf(transcriptData['subjects'][i]['semester']) === -1){
+  for(var i = 0 ; i < transcriptData['subjects'].length ; i++) {
+     if(semester.indexOf(transcriptData['subjects'][i]['semester']) === -1) {
          semester.push(transcriptData['subjects'][i]['semester']);
      }
   }
@@ -100,19 +101,19 @@ downloadPDF = function(){
     doc.text(line_X_position+32,line_Y_position,'Semester : '+printSem.split('"')[1]);
     line_Y_position += 4;
     for(var i = 0; i < transcriptData['subjects'].length; i++) {
-      if(transcriptData['subjects'][i]['semester'] == semester[k]){
-        for(var j = 1; j < 5; j++){
+      if(transcriptData['subjects'][i]['semester'] == semester[k]) {
+        for(var j = 1; j < 5; j++) {
           printSub = JSON.stringify(transcriptData['subjects'][i][subjectsAttr[j]]);
           if(j == 1) {
             doc.text(line_X_position,line_Y_position,printSub.split('"')[1]);
           }
-          if(j == 3){
+          if(j == 3) {
             doc.text(line_X_position+85,line_Y_position,printSub.split('"')[1]);
           }
-          if(j == 4){
+          if(j == 4) {
             doc.text(line_X_position+89,line_Y_position,printSub.split('"')[1]);
           }
-          if(j == 2){
+          if(j == 2) {
             printSub = printSub.split('"')[1]
             doc.text(line_X_position+14,line_Y_position,printSub.slice(0,35));
             doc.text(line_X_position+14,line_Y_position+4,printSub.slice(35,));
@@ -137,7 +138,7 @@ downloadPDF = function(){
     }line_Y_position += 4;
   }
   line_Y_position += 4;
-  for(var i = 9; i < 11; i++){
+  for(var i = 9; i < 11; i++) {
     printStr = JSON.stringify(personalAttr[i]);
     printDet = JSON.stringify(transcriptData['personalData'][personalAttr[i]]);
     doc.text(line_X_position,line_Y_position,printStr.split('"')[1]+' : '+printDet.split('"')[1]);

@@ -1,1 +1,37 @@
 /* CSS declarations go here */
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+html, body {height: 100%;}
+body {
+    background-color: #000000;
+    font-family: "Arial";
+    text-align:center;
+}
+* {margin: 0; padding: 0;}
+h1 {
+    font-size: 30px;
+    line-height: 1em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    color: #FFFFFF;
+    text-align: center;}
+
+/*=============header===========*/
+#headers {
+        background:url(images/bg2.jpg);
+        background-size: 100%;
+        height: 165%;
+        text-align: center;}
+header {
+      background:url(images/bg3.jpg);
+      background-size: 100%;
+      height: 81%;
+      text-align: center;}
+header .logo { padding: 6% 0 20px 0;  }
+h2 {
+  font-size: 26px;
+  line-height: 1em;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #000000;
+  text-align: center;}

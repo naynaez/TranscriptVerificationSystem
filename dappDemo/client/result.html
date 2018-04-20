@@ -9,7 +9,7 @@
             width: 80%;
             text-align: center;
         }
-        
+
         th {
             border: 1px solid #dddddd;
             text-align: center;
@@ -20,7 +20,7 @@
             text-align: left;
             padding: 8px;
         }
-        
+
         tr:nth-child(even) {
             background-color: #dddddd;
         }
@@ -28,21 +28,22 @@
         h2{
             color: #000;
         }
-        </style>
+    </style>
 
+    <header id="header_r">
         <h1 align="center" id="resultDisp"> This transcript is </h1>
         <h2>Transcript Data</h2>
         <input type="button" onclick="downloadPDF()" value="Download PDF" />
         <p align="center"><table id=personalDataTable> </table></p>
         <p>&nbsp;</p>
-        <p align="center"><table id=studyDataTable> 
+        <p align="center"><table id=studyDataTable>
         <tr>
             <th colspan="2" >COURSE TITLE</th>
             <th>CREDIT</th>
             <th>GRADE</th>
         </tr>
-    </table></p>
-
+        </table></p>
+    </header>
     <script>
         function JSONToText(obj){
             var text = JSON.stringify(obj).split('"')[1];
@@ -93,12 +94,12 @@
         {
             if(semester.indexOf(transcriptData['subjects'][i]['semester']) === -1)
             {
-                semester.push(transcriptData['subjects'][i]['semester']);      
-            }  
+                semester.push(transcriptData['subjects'][i]['semester']);
+            }
         }
-        
-        ////// Generate Subject detail Table ///////// 
-            /// Separate by Semester    
+
+        ////// Generate Subject detail Table /////////
+            /// Separate by Semester
         for(var j = 0 ; j < semester.length ; j++)
         {
             var y = document.createElement("TR");
@@ -151,14 +152,14 @@
                     document.getElementById("studyDataTable").appendChild(y);
 
                     var z = document.createElement("TD");
-                    var t = document.createTextNode("GPS: " + JSONToText(transcriptData['grade'][k]['GPS']) + 
+                    var t = document.createTextNode("GPS: " + JSONToText(transcriptData['grade'][k]['GPS']) +
                                                     " / GPA: " + JSONToText(transcriptData['grade'][k]['GPA']));
                     z.setAttribute("colspan", "4");
                     z.setAttribute("text-align", "right");
                     z.appendChild(t);
                     document.getElementById("my2TrG" + j).appendChild(z);
-                }   
-            }    
+                }
+            }
         }
     </script>
-  </template> 
+  </template>

@@ -17,6 +17,10 @@ h1 {
     text-align: center;}
 
 /*=============header===========*/
+#header_r {
+        background:url(images/bg1.jpg);
+        background-size: 100%;
+        height: 350%;}
 #headers {
         background:url(images/bg2.jpg);
         background-size: 100%;

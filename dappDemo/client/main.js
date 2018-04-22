@@ -95,36 +95,57 @@ downloadPDF = function() {
          semester.push(transcriptData['subjects'][i]['semester']);
      }
   }
+  //Display line
+  doc.line(line_X_position-1, line_Y_position-3, line_X_position+195, line_Y_position-3);
+  doc.line(line_X_position-1, line_Y_position+230, line_X_position+195, line_Y_position+230);
+  doc.line(line_X_position-1, line_Y_position-3, line_X_position-1, line_Y_position+230);
+  doc.line(line_X_position+195, line_Y_position-3, line_X_position+195, line_Y_position+230);
+
+  doc.line(line_X_position+97, line_Y_position-3, line_X_position+97, line_Y_position+230);
+
+  doc.line(line_X_position+78, line_Y_position-3, line_X_position+78, line_Y_position+230);
+  doc.line(line_X_position+88, line_Y_position-3, line_X_position+88, line_Y_position+230);
+  doc.line(line_X_position+176, line_Y_position-3, line_X_position+176, line_Y_position+230);
+  doc.line(line_X_position+186, line_Y_position-3, line_X_position+185, line_Y_position+230);
+  //Display title
+  doc.text(line_X_position+38,line_Y_position,'Course Title','center');
+  doc.text(line_X_position+137,line_Y_position,'Course Title','center');
+  doc.text(line_X_position+79,line_Y_position,'Credit');
+  doc.text(line_X_position+177,line_Y_position,'Credit');
+  doc.text(line_X_position+89,line_Y_position,'Grade');
+  doc.text(line_X_position+187,line_Y_position,'Grade');
+  doc.line(line_X_position-1, line_Y_position+1, line_X_position+195, line_Y_position+1);
+  line_Y_position += 4;
   //Display Subject
   for(var k = 0 ; k < semester.length ; k++) {
     printSem = JSON.stringify(semester[k])
     doc.text(line_X_position+32,line_Y_position,'Semester : '+printSem.split('"')[1]);
     line_Y_position += 4;
     for(var i = 0; i < transcriptData['subjects'].length; i++) {
-      if(transcriptData['subjects'][i]['semester'] == semester[k]) {
-        for(var j = 1; j < 5; j++) {
+      if(transcriptData['subjects'][i]['semester'] == semester[k]){
+        for(var j = 1; j < 5; j++){
           printSub = JSON.stringify(transcriptData['subjects'][i][subjectsAttr[j]]);
           if(j == 1) {
             doc.text(line_X_position,line_Y_position,printSub.split('"')[1]);
           }
-          if(j == 3) {
-            doc.text(line_X_position+85,line_Y_position,printSub.split('"')[1]);
+          if(j == 3){
+            doc.text(line_X_position+79,line_Y_position,printSub.split('"')[1]);
           }
-          if(j == 4) {
+          if(j == 4){
             doc.text(line_X_position+89,line_Y_position,printSub.split('"')[1]);
           }
-          if(j == 2) {
+          if(j == 2){
             printSub = printSub.split('"')[1]
-            doc.text(line_X_position+14,line_Y_position,printSub.slice(0,35));
-            doc.text(line_X_position+14,line_Y_position+4,printSub.slice(35,));
-            if(printSub.length > 35) {
+            doc.text(line_X_position+14,line_Y_position,printSub.slice(0,32));
+            doc.text(line_X_position+14,line_Y_position+4,printSub.slice(32,));
+            if(printSub.length > 32) {
               line_Y_position += 4;
             }
           }
         }line_Y_position += 4;
         if(line_Y_position > 284) {
-          line_X_position = 110;
-          line_Y_position = 60;
+          line_X_position = 107;
+          line_Y_position = 64;
         }
       }
     }
@@ -136,6 +157,10 @@ downloadPDF = function() {
           doc.text(line_X_position+28,line_Y_position,'GPS : '+printGPS.split('"')[1]+'  GPA : '+printGPA.split('"')[1]);
       }
     }line_Y_position += 4;
+    if(line_Y_position > 280) {
+      line_X_position = 107;
+      line_Y_position = 64;
+    }
   }
   line_Y_position += 4;
   for(var i = 9; i < 11; i++) {

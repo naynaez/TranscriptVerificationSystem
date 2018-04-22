@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 html, body {height: 100%;}
 body {
-    background-color: #000000;
+    background-color: #555555;
     font-family: "Arial";
     text-align:center;
 }
@@ -19,7 +19,7 @@ h1 {
 /*=============header===========*/
 #header_r {
         background:url(images/bg1.jpg);
-        height: 360%;}
+        height: 400%;}
 #headers {
         background:url(images/bg22.jpg);
         background-size: 100%;

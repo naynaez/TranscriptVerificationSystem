@@ -59,7 +59,7 @@ downloadPDF = function() {
   var printDet = '';
   var printSub = '';
   var line_Y_position = 16;
-  var line_X_position = 10;
+  var line_X_position = 9;
   var doc = new jsPDF();
   doc.setFont("times");
   doc.setFontSize(9);

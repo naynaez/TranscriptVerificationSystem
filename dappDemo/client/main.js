@@ -1,10 +1,10 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-import { Mongo } from 'meteor/mongo'
+import { Mongo } from 'meteor/mongo';
+import JSZip from 'jszip';
 import './main.html'
 import './register.html'
 import './result.html'
-
 
 Router.route('/',
 {
@@ -129,10 +129,10 @@ downloadPDF = function() {
             doc.text(line_X_position,line_Y_position,printSub.split('"')[1]);
           }
           if(j == 3){
-            doc.text(line_X_position+79,line_Y_position,printSub.split('"')[1]);
+            doc.text(line_X_position+82,line_Y_position,printSub.split('"')[1]);
           }
           if(j == 4){
-            doc.text(line_X_position+89,line_Y_position,printSub.split('"')[1]);
+            doc.text(line_X_position+91,line_Y_position,printSub.split('"')[1]);
           }
           if(j == 2){
             printSub = printSub.split('"')[1]
@@ -155,6 +155,7 @@ downloadPDF = function() {
           printGPS = JSON.stringify(transcriptData['grade'][i]['GPS']);
           printGPA = JSON.stringify(transcriptData['grade'][i]['GPA']);
           doc.text(line_X_position+28,line_Y_position,'GPS : '+printGPS.split('"')[1]+'  GPA : '+printGPA.split('"')[1]);
+          line_Y_position += 2;
       }
     }line_Y_position += 4;
     if(line_Y_position > 280) {
@@ -236,7 +237,7 @@ readFile_veri = function() {
         Router.go('result');
       }
     };
-    try
+    try 
     {
       fileReader.readAsText(fileToLoad, "UTF-8");
     }
@@ -250,11 +251,13 @@ readFile_regis = function() {
   /// Read file and parse to variable(obj)
   var fileToLoad = document.getElementById("fileToLoad").files[0];
   var fileReader = new FileReader();
+  // var JSZip = require("jszip");
+  let zip = new JSZip();
   fileReader.onload = function(fileLoadedEvent) {
     var textFromFileLoaded = fileLoadedEvent.target.result;
     var obj = JSON.parse(textFromFileLoaded);
     var objLength = obj.length;
-    var JSZip = require("jszip");
+    
 
     // init array
     var objString = [];
@@ -304,8 +307,13 @@ readFile_regis = function() {
         fileStr[i] = JSON.stringify(obj[i],null,"\t");
         fileName[i] = obj[i]['personalData']['name'] + " Transcript";
         file[i] = new File([fileStr[i]], fileName[i], {type: "application/json;charset=utf-8"});
-        FileSaver.saveAs(file[i]);
+        console.log("file " + i + "created.");
+        zip.file(fileName[i] + ".json",file[i]);
     }
+    zip.generateAsync({type: "blob"}).then(function(content) {
+      FileSaver.saveAs(content, "registeredTranscriptFile.zip");
+    });
+
   };
   fileReader.readAsText(fileToLoad, "UTF-8");
 }
